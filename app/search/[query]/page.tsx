@@ -1,15 +1,15 @@
 "use client";
-import MovieList from "@/components/ui/MovieList";
+import MovieList from "@/components/MovieList";
 import { useGetSearchMoviesQuery } from "@/lib/features/apiSlice";
 import { Movie } from "@/lib/types";
 import { useEffect, useState } from "react";
 
 function MovieSearch({ params }: { params: { query: string } }) {
   const [page, setPage] = useState(1);
-  const {query} = params;
+  const { query } = params;
   const [movies, setMovies] = useState<Movie[]>([]);
 
-  const { data, error, isLoading } = useGetSearchMoviesQuery({query, page});
+  const { data, error, isLoading } = useGetSearchMoviesQuery({ query, page });
 
   useEffect(() => {
     if (data && data.results) {
@@ -29,11 +29,19 @@ function MovieSearch({ params }: { params: { query: string } }) {
   return (
     <div>
       <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">Search results for: {decodeURI(query)}</h1>
-    <MovieList isLoading={isLoading} movies={movies} loadMoreMovies={loadMoreMovies} page={page} total_pages={data?.total_pages ?? 0} />
+        <h1 className="text-3xl font-bold mb-6">
+          Search results for: {decodeURI(query)}
+        </h1>
+        <MovieList
+          isLoading={isLoading}
+          movies={movies}
+          loadMoreMovies={loadMoreMovies}
+          page={page}
+          total_pages={data?.total_pages ?? 0}
+        />
+      </div>
     </div>
-    </div>
-  )
+  );
 }
 
-export default MovieSearch
+export default MovieSearch;
