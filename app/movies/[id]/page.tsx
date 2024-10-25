@@ -64,12 +64,16 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ params }) => {
       <p className="mt-2 text-gray-500">
         <strong>Original Language:</strong> {movieDetails.original_language}
       </p>
-      <p className="mt-2 text-gray-500">
-        <strong>Budget:</strong> ${movieDetails.budget.toLocaleString()}
-      </p>
-      <p className="mt-2 text-gray-500">
-        <strong>Revenue:</strong> ${movieDetails.revenue.toLocaleString()}
-      </p>
+      {movieDetails.budget !== 0 && (
+        <p className="mt-2 text-gray-500">
+          <strong>Budget:</strong> ${movieDetails.budget.toLocaleString()}
+        </p>
+      )}
+      {movieDetails.revenue !== 0 && (
+        <p className="mt-2 text-gray-500">
+          <strong>Revenue:</strong> ${movieDetails.revenue.toLocaleString()}
+        </p>
+      )}
       <p className="mt-2 text-gray-500">
         <strong>IMDB ID:</strong> {movieDetails.imdb_id}
       </p>
