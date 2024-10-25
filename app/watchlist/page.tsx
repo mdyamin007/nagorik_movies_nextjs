@@ -33,19 +33,27 @@ const Watchlist: FC = () => {
       <h1 className="text-4xl font-bold mb-8">My Watchlist</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {favorites.map((movie) => (
-          <div
+          <Link
+            href={`/movies/${movie.id}`}
             key={movie.id}
             className="text-center py-4 bg-gray-100 dark:bg-black rounded-lg shadow-lg flex flex-col items-center justify-center hover:scale-105 transition"
           >
-            <Link href={`/movies/${movie.id}`}>
+            {/* Display Movie Poster */}
+            {movie.poster_path ? (
               <Image
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
                 alt={movie.title}
-                width={300}
+                width={200}
                 height={300}
-                className="rounded-lg mb-4 object-cover"
+                loading="lazy"
+                className="w-full h-auto mb-1"
+                unoptimized
               />
-            </Link>
+            ) : (
+              <div className="w-full h-[90%] bg-gray-300 mb-1 flex items-center justify-center">
+                <p className="text-gray-600">No poster available</p>
+              </div>
+            )}
             <h2 className="text-lg font-semibold">{movie.title}</h2>
             <button
               onClick={() => handleRemove(movie)}
@@ -53,7 +61,7 @@ const Watchlist: FC = () => {
             >
               Remove from Watchlist
             </button>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

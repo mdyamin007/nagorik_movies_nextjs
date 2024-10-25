@@ -23,14 +23,36 @@ function MovieSearch({ params }: { params: { query: string } }) {
     }
   };
 
-  if (isLoading && page === 1) return <p className="text-center">Loading...</p>;
-  if (error) return <p className="text-center">Failed to load data</p>;
+  if (isLoading && page === 1) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-3xl font-bold mb-6">
+          Search results for: {decodeURIComponent(query)}
+        </h1>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <div
+              key={index}
+              className="w-full h-64 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse"
+            ></div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (error)
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <p className="text-center">Failed to load data</p>
+      </div>
+    );
 
   return (
     <div>
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-6">
-          Search results for: {decodeURI(query)}
+          Search results for: {decodeURIComponent(query)}
         </h1>
         <MovieList
           isLoading={isLoading}
