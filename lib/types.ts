@@ -7,7 +7,7 @@ export interface Movie {
   vote_average: number;
 }
 
-export interface PopularMoviesResponse {
+export interface MoviesResponse {
   page: number;
   results: Movie[];
   total_pages: number;
@@ -15,7 +15,6 @@ export interface PopularMoviesResponse {
 }
 
 export interface IMovieList {
-  title: string;
   movies: Movie[];
   isLoading: boolean;
   page: number;

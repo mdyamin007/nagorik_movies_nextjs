@@ -1,11 +1,10 @@
-import Navbar from '@/components/ui/Navbar';
 import PopularMovies from '@/components/PopularMovies';
 
 const Home = () => {
   return (
     <div>
-      <Navbar />
       <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-6">Popular Movies</h1>
         <PopularMovies />
       </div>
     </div>

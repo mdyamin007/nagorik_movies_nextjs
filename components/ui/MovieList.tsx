@@ -3,13 +3,16 @@ import { IMovieList } from "@/lib/types"
 import Image from "next/image"
 import { useRouter } from "next/navigation";
 
-function MovieList({title, movies, isLoading, page, total_pages, loadMoreMovies}: IMovieList) {
+function MovieList({movies, isLoading, page, total_pages, loadMoreMovies}: IMovieList) {
 
     const router = useRouter();
 
+    if(movies.length === 0) {
+        return <p className="text-center">No movies found</p>
+    }
+
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">{title}</h1>
+    <>
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {movies.map((movie) => (
           <li
@@ -51,7 +54,7 @@ function MovieList({title, movies, isLoading, page, total_pages, loadMoreMovies}
           </button>
         </div>
       )}
-    </div>
+      </>
   )
 }
 

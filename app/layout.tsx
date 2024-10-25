@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import dynamic from "next/dynamic";
+import Navbar from "@/components/ui/Navbar";
 const StoreProvider = dynamic(() => import("./StoreProvider"), {
   ssr: false,
-})
+});
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -33,7 +34,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-black dark:text-white`}
       >
         <StoreProvider>
-        {children}
+          <Navbar />
+          {children}
         </StoreProvider>
       </body>
     </html>

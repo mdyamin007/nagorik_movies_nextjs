@@ -27,7 +27,7 @@ const PopularMovies = () => {
   if (error) return <p className="text-center">Failed to load data</p>;
 
   return (
-   <MovieList isLoading={isLoading} movies={movies} loadMoreMovies={loadMoreMovies} page={page} total_pages={data?.total_pages ?? 0} title={"Popular Movies"} />
+   <MovieList isLoading={isLoading} movies={movies} loadMoreMovies={loadMoreMovies} page={page} total_pages={data?.total_pages ?? 0} />
   );
 };
 
