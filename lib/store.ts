@@ -1,8 +1,35 @@
 import { configureStore } from '@reduxjs/toolkit'
+import { tmdbApiSlice } from './features/apiSlice'
+import {
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+import rootReducer from './rootReducer'
+
+const persistConfig = {
+  key: 'root',
+  version: 1,
+  storage,
+  whitelist: [],
+  blacklist: [tmdbApiSlice.reducerPath]
+}
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const makeStore = () => {
   return configureStore({
-    reducer: {}
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+      }
+      }).concat(tmdbApiSlice.middleware)
   })
 }
 
