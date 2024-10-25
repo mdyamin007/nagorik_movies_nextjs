@@ -29,7 +29,7 @@ function SearchBar() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex items-center w-2/3 justify-center"
+      className="flex items-center w-full justify-center"
     >
       <input
         type="text"
