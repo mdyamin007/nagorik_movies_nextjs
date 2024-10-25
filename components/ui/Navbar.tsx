@@ -1,47 +1,63 @@
-'use client';
-import React, { useEffect } from 'react';
-import { RootState } from '@/lib/store'; // Import the RootState type
-import { toggleTheme } from '@/lib/features/themeSlice'; // Import toggleTheme action
-import Link from 'next/link';
-import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import SearchBar from './SearchBar';
+"use client";
+import React, { useEffect } from "react";
+import { RootState } from "@/lib/store";
+import { toggleTheme } from "@/lib/features/themeSlice";
+import Link from "next/link";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import SearchBar from "./SearchBar";
+import { IoSunny } from "react-icons/io5";
+import { IoMoon } from "react-icons/io5";
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
-  const theme = useAppSelector((state: RootState) => state.theme.mode); // Get theme from Redux
+  const theme = useAppSelector((state: RootState) => state.theme.mode);
 
-  // Apply theme on mount and whenever it changes
   useEffect(() => {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
     } else {
-      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.remove("dark");
     }
   }, [theme]);
 
-  // Toggle theme using Redux action
   const handleToggleTheme = () => {
     dispatch(toggleTheme());
   };
 
-  
-
   return (
     <nav className="bg-gray-800 dark:bg-gray-900 p-4">
       <div className="container mx-auto flex justify-between items-center">
-        <Link href={"/"} className="text-yellow-500 dark:text-yellow-400 text-2xl font-bold cursor-pointer">
+        <Link
+          href={"/"}
+          className="text-yellow-500 dark:text-yellow-400 text-2xl font-bold cursor-pointer"
+        >
           Nagorik Movies
         </Link>
 
         <SearchBar />
-        
-        {/* Dark Mode Toggle */}
-        <button
-          onClick={handleToggleTheme}
-          className="bg-gray-200 dark:bg-gray-600 text-black dark:text-white py-2 px-4 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500 transition"
-        >
-          {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
-        </button>
+
+        {/* Right section with watchlist and theme toggle */}
+        <div className="flex items-center space-x-8">
+          {/* My Watchlist Link */}
+          <Link
+            href="/watchlist"
+            className="text-yellow-500 dark:text-yellow-400 text-lg font-semibold hover:underline"
+          >
+            My Watchlist
+          </Link>
+
+          {/* Dark Mode Toggle */}
+          <button
+            onClick={handleToggleTheme}
+            className="text-yellow-500 dark:text-yellow-400 p-2 rounded-full transition border border-yellow-500 dark:border-yellow-400"
+          >
+            {theme === "light" ? (
+              <IoSunny className="text-2xl" />
+            ) : (
+              <IoMoon className="text-2xl" />
+            )}
+          </button>
+        </div>
       </div>
     </nav>
   );

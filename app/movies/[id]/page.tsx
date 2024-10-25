@@ -61,9 +61,14 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ params }) => {
       <p className="mt-2 text-gray-500">
         <strong>Runtime:</strong> {movieDetails.runtime} minutes
       </p>
-      <p className="mt-2 text-gray-500">
-        <strong>Original Language:</strong> {movieDetails.original_language}
-      </p>
+      {movieDetails.spoken_languages && (
+        <p className="mt-2 text-gray-500">
+          <strong>Spoken Languages:</strong>{" "}
+          {movieDetails.spoken_languages
+            .map((language) => language.english_name)
+            .join(", ")}
+        </p>
+      )}
       {movieDetails.budget !== 0 && (
         <p className="mt-2 text-gray-500">
           <strong>Budget:</strong> ${movieDetails.budget.toLocaleString()}
@@ -87,17 +92,35 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ params }) => {
       <p className="mt-2 text-gray-500">
         <strong>Status:</strong> {movieDetails.status}
       </p>
-      <p className="mt-2 text-gray-500">
-        <strong>Homepage:</strong>{" "}
-        <Link
-          href={movieDetails.homepage ?? "#"}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-500 hover:underline"
-        >
-          {movieDetails.homepage}
-        </Link>
-      </p>
+      {movieDetails.production_countries && (
+        <p className="mt-2 text-gray-500">
+          <strong>Production Countries:</strong>{" "}
+          {movieDetails.production_countries
+            .map((country) => country.name)
+            .join(", ")}
+        </p>
+      )}
+      {movieDetails.production_companies && (
+        <p className="mt-2 text-gray-500">
+          <strong>Production Companies:</strong>{" "}
+          {movieDetails.production_companies
+            .map((company) => company.name)
+            .join(", ")}
+        </p>
+      )}
+      {movieDetails?.homepage && (
+        <p className="mt-2 text-gray-500">
+          <strong>Homepage:</strong>{" "}
+          <Link
+            href={movieDetails.homepage ?? "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 hover:underline"
+          >
+            {movieDetails.homepage}
+          </Link>
+        </p>
+      )}
 
       <button
         onClick={toggleFavorite}

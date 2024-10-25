@@ -53,6 +53,14 @@ export interface Movie {
   title: string;
   vote_average: number;
   vote_count: number;
+  spoken_languages: { iso_639_1: string; name: string; english_name: string }[];
+  production_companies: {
+    id: number;
+    logo_path: string | null;
+    name: string;
+    origin_country: string;
+  }[];
+  production_countries: { iso_3166_1: string; name: string }[];
 }
 
 export interface MovieCredits {
