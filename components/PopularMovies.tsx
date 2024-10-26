@@ -8,7 +8,7 @@ import MovieList from "./MovieList";
 const PopularMovies = () => {
   const [page, setPage] = useState(1);
   const [movies, setMovies] = useState<Movie[]>([]);
-  const { data, error, isLoading } = useGetPopularMoviesQuery(page);
+  const { data, isLoading } = useGetPopularMoviesQuery(page);
 
   useEffect(() => {
     if (data && data.results) {
@@ -23,8 +23,8 @@ const PopularMovies = () => {
     }
   };
 
-  if (isLoading && page === 1) return <p className="text-center">Loading...</p>;
-  if (error) return <p className="text-center">Failed to load data</p>;
+  // if (isLoading && page === 1) return <p className="text-center">Loading...</p>;
+  // if (error) return <p className="text-center">Failed to load data</p>;
 
   return (
     <MovieList

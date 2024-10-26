@@ -1,20 +1,26 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { removeFavorite } from "@/lib/features/favoritesSlice";
 import { RootState } from "@/lib/store";
 import { Movie } from "@/lib/types";
 import Image from "next/image";
-import Link from "next/link";
-import { FC } from "react";
+import React, { FC } from "react";
 
 const Watchlist: FC = () => {
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const favorites = useAppSelector(
     (state: RootState) => state.favorites.movies
   );
 
-  const handleRemove = (movie: Movie) => {
+  const handleRemove = (e: React.MouseEvent, movie: Movie) => {
+    e.stopPropagation();
     dispatch(removeFavorite(movie));
+  };
+
+  const handleNavigate = (movieId: number) => {
+    router.push(`/movies/${movieId}`);
   };
 
   if (!favorites.length) {
@@ -33,10 +39,10 @@ const Watchlist: FC = () => {
       <h1 className="text-4xl font-bold mb-8">My Watchlist</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {favorites.map((movie) => (
-          <Link
-            href={`/movies/${movie.id}`}
+          <div
             key={movie.id}
-            className="text-center py-4 bg-gray-100 dark:bg-black rounded-lg shadow-lg flex flex-col items-center justify-center hover:scale-105 transition"
+            onClick={() => handleNavigate(movie.id)}
+            className="text-center py-4 bg-gray-100 dark:bg-black rounded-lg shadow-lg flex flex-col items-center justify-center hover:scale-105 transition cursor-pointer"
           >
             {/* Display Movie Poster */}
             {movie.poster_path ? (
@@ -56,12 +62,12 @@ const Watchlist: FC = () => {
             )}
             <h2 className="text-lg font-semibold">{movie.title}</h2>
             <button
-              onClick={() => handleRemove(movie)}
+              onClick={(e) => handleRemove(e, movie)}
               className="mt-4 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition"
             >
               Remove from Watchlist
             </button>
-          </Link>
+          </div>
         ))}
       </div>
     </div>

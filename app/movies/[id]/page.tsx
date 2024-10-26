@@ -106,7 +106,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ params }) => {
 
       {movieDetails.vote_average && (
         <p className="mt-2 text-gray-500">
-          <strong>Vote Average:</strong> {movieDetails.vote_average}
+          <strong>Vote Average:</strong> {movieDetails.vote_average.toFixed(1)}
           <span className="text-yellow-500 mx-1">
             {"★".repeat(Math.round(movieDetails.vote_average / 2))}
             {"☆".repeat(5 - Math.round(movieDetails.vote_average / 2))}
@@ -159,12 +159,21 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ params }) => {
         </p>
       )}
 
-      <button
-        onClick={toggleFavorite}
-        className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded my-4"
-      >
-        {isFavorite ? "Remove from Watchlist" : "Add to Watchlist"}
-      </button>
+      {isFavorite ? (
+        <button
+          onClick={toggleFavorite}
+          className="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded my-4"
+        >
+          Remove from watchlist
+        </button>
+      ) : (
+        <button
+          onClick={toggleFavorite}
+          className="bg-yellow-600 hover:bg-yellow-500 text-white px-4 py-2 rounded my-4"
+        >
+          Add to watchlist
+        </button>
+      )}
 
       {movieDetails?.backdrop_path && (
         <Image

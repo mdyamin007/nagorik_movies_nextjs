@@ -10,7 +10,7 @@ function MovieList({
   total_pages,
   loadMoreMovies,
 }: IMovieList) {
-  if (movies.length === 0) {
+  if (!isLoading && movies.length === 0) {
     return <p className="text-center">No movies found</p>;
   }
 
@@ -48,9 +48,11 @@ function MovieList({
                     {"★".repeat(Math.round(movie.vote_average / 2))}
                     {"☆".repeat(5 - Math.round(movie.vote_average / 2))}
                   </span>
-                  <span className="ml-2 text-gray-600">
-                    {movie.vote_average}
-                  </span>
+                  {movie.vote_average && (
+                    <span className="ml-2 text-gray-600">
+                      {movie.vote_average.toFixed(1)}
+                    </span>
+                  )}
                 </div>
               </div>
             </Link>
