@@ -104,7 +104,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ params }) => {
         </p>
       )}
 
-      {movieDetails.vote_average && (
+      {movieDetails.vote_average > 0 && (
         <p className="mt-2 text-gray-500">
           <strong>Vote Average:</strong> {movieDetails.vote_average.toFixed(1)}
           <span className="text-yellow-500 mx-1">
